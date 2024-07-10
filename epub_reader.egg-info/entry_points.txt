@@ -1,0 +1,2 @@
+[console_scripts]
+epub-reader = epub_reader.main:main
