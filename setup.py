@@ -18,7 +18,7 @@ setup(
     description='Python CLI Epub reader with page navigation, bookmarks management, search management, save pages and book to text files and reading sessions to save and load your current progress ',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/yourusername/epub-reader',
+    url='https://github.com/fairy-root/epub-reader',
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
