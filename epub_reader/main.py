@@ -95,7 +95,7 @@ def display_choices(epub_files_with_metadata: List[Tuple[str, str, str, int, str
     print_colored("Available EPUB files:", "blue")
     for index, (file, title, author, count, date, language) in enumerate(epub_files_with_metadata, start=1):
         print_colored(f"{index}. {title} by {author} ({count} pages, {date}, {language})", "green")
-        print()  # Adding a blank line for spacing
+        print()
     while True:
         choice = input_colored("Enter the number of the EPUB file you want to read: ", "yellow").strip()
         try:
