@@ -32,3 +32,21 @@ This command will scan the current directory for EPUB files and allow you to rea
 - Saves reading session including current page, progress, bookmarks, and search history, and loading them so you never lose your progress.
 - Colorized output for enhanced readability
 - Graceful exit using `CTRL+C`
+
+## Install Locally
+
+to install locally, clone this repository and run:
+
+```bash
+git clone https://github.com/fairy-root/epub_reader.git
+cd epub_reader
+python setup.py install
+```
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request if you have any ideas or find bugs.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

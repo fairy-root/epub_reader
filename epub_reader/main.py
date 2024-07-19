@@ -119,7 +119,7 @@ def display_page(pages: List[str], page_number: int, line_offset: int = 0, lines
             print(line)
         progress = (start_line / total_lines) * 100 if total_lines else 100
         print_colored(f"\n{'-'*20} Page {page_number + 1} - {progress:.2f}% {'-'*20}\n", "cyan")
-        print_colored(f"Current Book: {book_title} by {book_author}", "magenta")  # Display current book
+        print_colored(f"{book_title} by {book_author}", "magenta")  # Display current book
 
 def save_page(pages: List[str], page_number: int, title: str, author: str) -> None:
     if 0 <= page_number < len(pages):
@@ -245,6 +245,8 @@ def adjust_lines_per_screen() -> None:
         except ValueError:
             print_colored("Invalid input. Please enter a number.", "red")
 
+# ... (rest of the code remains unchanged)
+
 def main() -> None:
     global book_title, book_author
 
@@ -271,8 +273,14 @@ def main() -> None:
 
     display_page(pages, page_number, line_offset, lines_per_screen=LINES_PER_SCREEN)
 
+    show_help = False
+
     while True:
-        command = input_colored("\n'n' for next line\n'p' for previous line\n'j' to jump to page\n'jp' to jump to percentage\n\n'b' to add bookmark\n'bm' to view bookmarks\n'jb' to jump to bookmark\n'db' to delete bookmark\n'dab' to delete all bookmarks\n\n's' to search\n'sh' to view search history\n'ds' to delete search history\n'das' to delete all search history\n\n'sp' to save page as text file\n'sb' to save book as text file\n\n'al' to adjust lines per screen\n'q' to quit\n\nEnter your choice: ", "cyan").strip().lower()
+        if show_help:
+            command = input_colored("\n'n' for next page\n'p' for previous page\n'h' for help (this will hide all other commands)\n\nEnter your choice: ", "cyan").strip().lower()
+        else:
+            command = input_colored("\n'n' for next line\n'p' for previous line\n'h' for help (show all commands)\n\nEnter your choice: ", "cyan").strip().lower()
+        
         if command == 'n':
             page_lines = pages[page_number].split('\n')
             if line_offset + LINES_PER_SCREEN < len(page_lines):
@@ -291,6 +299,30 @@ def main() -> None:
                     page_lines = pages[page_number].split('\n')
                     line_offset = max(0, len(page_lines) - LINES_PER_SCREEN)
             display_page(pages, page_number, line_offset, lines_per_screen=LINES_PER_SCREEN)
+        elif command == 'h':
+            if show_help:
+                show_help = False
+            else:
+                print_colored("\nFull list of commands:\n\n"
+                    "'n' for next line\n"
+                    "'p' for previous line\n"
+                    "'j' to jump to page\n"
+                    "'jp' to jump to percentage\n"
+                    "'b' to add bookmark\n"
+                    "'bm' to view bookmarks\n"
+                    "'jb' to jump to bookmark\n"
+                    "'db' to delete bookmark\n"
+                    "'dab' to delete all bookmarks\n"
+                    "'s' to search\n"
+                    "'sh' to view search history\n"
+                    "'ds' to delete search history\n"
+                    "'das' to delete all search history\n"
+                    "'sp' to save page as text file\n"
+                    "'sb' to save book as text file\n"
+                    "'al' to adjust lines per screen\n"
+                    "'q' to quit\n", "cyan")
+                show_help = True
+        # Other command handlers remain unchanged...
         elif command == 'j':
             page_number = jump_to_page(pages)
             line_offset = 0
@@ -358,7 +390,6 @@ def main() -> None:
             print_colored("All search history deleted.", "green")
         elif command == 'al':
             adjust_lines_per_screen()
-            # Recalculate the line_offset for the current progress
             page_lines = pages[page_number].split('\n')
             total_lines = len(page_lines)
             line_offset = int((progress / 100) * total_lines)
