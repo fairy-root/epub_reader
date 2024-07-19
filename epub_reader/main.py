@@ -245,8 +245,6 @@ def adjust_lines_per_screen() -> None:
         except ValueError:
             print_colored("Invalid input. Please enter a number.", "red")
 
-# ... (rest of the code remains unchanged)
-
 def main() -> None:
     global book_title, book_author
 
